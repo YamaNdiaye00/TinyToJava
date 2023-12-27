@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TINY to JAVA</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+ <div class="header">
+        Tiny → Java
+    </div>
+<div class="container">
+    <div class="editor">
+        <label for="code"></label>
+        <textarea id="code" placeholder="Write TINY pseudocode here "></textarea>
+    </div>
+    <div class="output-container">
+            <button id="copy-btn">Copy To Clipboard</button>
+            <div class="output" id="output">
+                <!-- Output will be displayed here -->
+            </div>
+        </div>
+</div>
+<button id="run-btn">Run</button>
+</body>
+</html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const runButton = document.getElementById('run-btn');
+    const copyButton = document.getElementById('copy-btn');
+    const codeBox = document.getElementById('code');
+    const outputBox = document.getElementById('output');
+
+    runButton.addEventListener('click', function() {
+        fetch('/', {
+            method: 'POST',
+            body: new URLSearchParams({ 'pseudocode': codeBox.value })
+        })
+        .then(response => response.json())
+        .then(data => {
+            outputBox.textContent = data; // Display the result in the output box
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+
+    copyButton.addEventListener('click', function() {
+        navigator.clipboard.writeText(outputBox.textContent)
+            .then(() => {
+                // You can show some message or change the button text temporarily
+                console.log('Output copied to clipboard');
+            })
+            .catch(err => {
+                console.error('Error in copying text: ', err);
+            });
+    });
+});
+</script>
+

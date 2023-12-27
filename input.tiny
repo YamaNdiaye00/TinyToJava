@@ -1,0 +1,7 @@
+INT MAIN F()  /** INCORRECT PROGRAM & * & % @ ! */ WITH QSTRING**/
+BEGIN
+	STRING x;
+	x
+	INT y;
+	y := F3(3,5);
+END
